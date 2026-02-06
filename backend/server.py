@@ -364,7 +364,7 @@ async def create_checkout(request: Request, user=Depends(get_current_user)):
         price = round(price / 2, 2)
     
     success_url = f"{origin_url}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
-    cancel_url = f"{origin_url}/products/{product_id}"
+    cancel_url = f"{origin_url}/product/{product_id}"
     
     metadata = {
         "product_id": product_id,
