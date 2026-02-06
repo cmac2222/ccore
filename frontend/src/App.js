@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import StatusPage from './pages/StatusPage';
 import ProductsPage from './pages/ProductsPage';
+import GameProductsPage from './pages/GameProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import DashboardPage from './pages/DashboardPage';
 import CheckoutSuccess from './pages/CheckoutSuccess';
