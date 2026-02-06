@@ -69,6 +69,12 @@ class ProductResponse(BaseModel):
     image_url: str
     accent_color: str
     tier: str
+    screenshots: Optional[List[str]] = None
+    feature_categories: Optional[Dict[str, List[str]]] = None
+    requirements: Optional[List[str]] = None
+    pricing_tiers: Optional[List[Dict]] = None
+    video_url: Optional[str] = None
+    tagline: Optional[str] = None
 
 class ProductStatusResponse(BaseModel):
     product_id: str
