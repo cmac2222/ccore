@@ -372,14 +372,14 @@ async def get_games():
 # ======================== STRIPE CHECKOUT ========================
 
 # Backend defines all packages - never accept amounts from frontend
-PRODUCT_PACKAGES = {p["product_id"]: {"name": p["name"], "game": p["game"], "price": p["price"]} for p in PRODUCTS}
+PRODUCT_PACKAGES = {p["product_id"]: {"name": p["name"], "game": p["game"], "price": p["price"], "pricing_tiers": p.get("pricing_tiers")} for p in PRODUCTS}
 
 @api_router.post("/checkout/create")
 async def create_checkout(request: Request, user=Depends(get_current_user)):
     body = await request.json()
     product_id = body.get("product_id")
     origin_url = body.get("origin_url")
-    duration = body.get("duration", "monthly")  # daily, weekly, monthly
+    duration = body.get("duration", "1month")
     
     if not product_id or product_id not in PRODUCT_PACKAGES:
         raise HTTPException(status_code=400, detail="Invalid product")
@@ -387,13 +387,27 @@ async def create_checkout(request: Request, user=Depends(get_current_user)):
         raise HTTPException(status_code=400, detail="Missing origin URL")
     
     pkg = PRODUCT_PACKAGES[product_id]
-    price = float(pkg["price"])
     
-    # Adjust price by duration
-    if duration == "daily":
-        price = round(price / 4, 2)
-    elif duration == "weekly":
-        price = round(price / 2, 2)
+    # Use pricing_tiers if available, else fall back to base price calculations
+    pricing_tiers = pkg.get("pricing_tiers")
+    if pricing_tiers:
+        tier = next((t for t in pricing_tiers if t["key"] == duration), None)
+        if tier:
+            price = float(tier["price"])
+            days = tier["days"]
+        else:
+            price = float(pkg["price"])
+            days = 30
+    else:
+        price = float(pkg["price"])
+        if duration == "1day" or duration == "daily":
+            price = round(price / 4, 2)
+            days = 1
+        elif duration == "1week" or duration == "weekly":
+            price = round(price / 2, 2)
+            days = 7
+        else:
+            days = 30
     
     success_url = f"{origin_url}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
     cancel_url = f"{origin_url}/product/{product_id}"
