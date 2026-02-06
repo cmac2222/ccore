@@ -19,6 +19,73 @@ const FEATURES = [
   { icon: Crosshair, title: 'Precision', desc: 'Fine-tuned aimbot, ESP, and utility features for competitive play.', color: '#FF0055' },
 ];
 
+const FAQ_ITEMS = [
+  { q: 'Is this safe to use?', a: 'All Cheatcore products are externally loaded, tested daily against current anti-cheat systems, and designed to minimize detection risk. We update immediately when needed. Check our real-time Status page for current detection status.' },
+  { q: 'How do I receive my product?', a: 'After successful payment through Stripe, your license key is generated instantly and delivered to your Dashboard. No waiting, no emails — just login and grab your key.' },
+  { q: 'What happens if a product gets detected?', a: 'We monitor detection status 24/7. If a product gets detected, we pause sales and push an update as quickly as possible. Your subscription time is not extended for detections, so always check the Status page before playing.' },
+  { q: 'Can I use this on multiple PCs?', a: 'License keys are typically locked to one hardware ID (HWID). If you need to transfer your key to a new device, contact our support team via Discord.' },
+  { q: 'What payment methods do you accept?', a: 'We accept all major credit/debit cards through Stripe, our secure payment processor. All transactions are encrypted and processed safely.' },
+  { q: 'Do I need a USB or special hardware?', a: 'No. Our products are software-based and run directly on your PC. No USB drives, custom firmware, or external hardware is required.' },
+  { q: 'Is there a refund policy?', a: 'Due to the digital nature of our products, all sales are final once the license key has been generated. Please review product details and the Status page before purchasing.' },
+  { q: 'How do I get support?', a: 'Join our Discord server for real-time support from our team. You can also check the Guides page for troubleshooting common issues.' },
+];
+
+function FaqSection() {
+  const [openIndex, setOpenIndex] = useState(null);
+  return (
+    <section className="py-24 md:py-32 relative" data-testid="faq-section">
+      <div className="max-w-4xl mx-auto px-6 md:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-cc-green mb-4">// Got Questions?</p>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-white mb-12">
+            Frequently Asked Questions
+          </h2>
+        </motion.div>
+        <div className="space-y-2">
+          {FAQ_ITEMS.map((item, i) => (
+            <motion.div
+              key={i}
+              data-testid={`faq-item-${i}`}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04 }}
+              className="bg-cc-paper border border-white/10"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-white/[0.02] transition-colors duration-200"
+              >
+                <span className="font-heading text-sm md:text-base font-bold text-white pr-4">{item.q}</span>
+                <ChevronDown size={18} className={`text-gray-500 flex-shrink-0 transition-transform duration-300 ${openIndex === i ? 'rotate-180 text-cc-blue' : ''}`} />
+              </button>
+              <AnimatePresence initial={false}>
+                {openIndex === i && (
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: 'auto' }}
+                    exit={{ height: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 pb-5 border-t border-white/5">
+                      <p className="text-sm text-gray-400 leading-relaxed pt-4">{item.a}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   const [stats, setStats] = useState(null);
   const [reviews, setReviews] = useState([]);
