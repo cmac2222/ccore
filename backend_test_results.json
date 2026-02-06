@@ -1,0 +1,99 @@
+{
+  "tests_run": 15,
+  "tests_passed": 15,
+  "success_rate": 100.0,
+  "failed_tests": [],
+  "test_results": [
+    {
+      "test_name": "GET /api/products (14 products)",
+      "success": true,
+      "details": "Returned 14 products",
+      "timestamp": "2026-02-06T09:53:31.110542"
+    },
+    {
+      "test_name": "GET /api/games (7 games)",
+      "success": true,
+      "details": "Returned 7 games",
+      "timestamp": "2026-02-06T09:53:31.147144"
+    },
+    {
+      "test_name": "GET /api/product-status (14 statuses)",
+      "success": true,
+      "details": "",
+      "timestamp": "2026-02-06T09:53:31.186398"
+    },
+    {
+      "test_name": "GET /api/reviews (10 reviews)",
+      "success": true,
+      "details": "",
+      "timestamp": "2026-02-06T09:53:31.221721"
+    },
+    {
+      "test_name": "GET /api/stats",
+      "success": true,
+      "details": "Stats: {'total_products': 14, 'total_games': 7, 'undetected_count': 11, 'total_reviews': 10}",
+      "timestamp": "2026-02-06T09:53:31.254650"
+    },
+    {
+      "test_name": "GET /api/products/{id} (rust-disconnect)",
+      "success": true,
+      "details": "",
+      "timestamp": "2026-02-06T09:53:31.330242"
+    },
+    {
+      "test_name": "POST /api/auth/register",
+      "success": true,
+      "details": "Registered user: test_user_095331@example.com",
+      "timestamp": "2026-02-06T09:53:31.625608"
+    },
+    {
+      "test_name": "POST /api/auth/login",
+      "success": true,
+      "details": "Logged in user: test_user_095331@example.com",
+      "timestamp": "2026-02-06T09:53:31.886048"
+    },
+    {
+      "test_name": "GET /api/auth/me",
+      "success": true,
+      "details": "User: test_user_095331@example.com",
+      "timestamp": "2026-02-06T09:53:31.921477"
+    },
+    {
+      "test_name": "GET /api/licenses (0 licenses)",
+      "success": true,
+      "details": "",
+      "timestamp": "2026-02-06T09:53:31.956415"
+    },
+    {
+      "test_name": "GET /api/transactions (0 transactions)",
+      "success": true,
+      "details": "",
+      "timestamp": "2026-02-06T09:53:31.986821"
+    },
+    {
+      "test_name": "POST /api/checkout/create",
+      "success": true,
+      "details": "Session: cs_test_a123XrAxEmnVX9q5XYOIFzx8iOGblLXaCHuXBsqFZAovcWkdiiKngVQI6E",
+      "timestamp": "2026-02-06T09:53:32.558215"
+    },
+    {
+      "test_name": "GET /api/checkout/status/{id}",
+      "success": true,
+      "details": "",
+      "timestamp": "2026-02-06T09:53:32.818832"
+    },
+    {
+      "test_name": "GET /api/products/nonexistent (404 expected)",
+      "success": true,
+      "details": "",
+      "timestamp": "2026-02-06T09:53:32.895271"
+    },
+    {
+      "test_name": "GET /api/auth/me without auth (401 expected)",
+      "success": true,
+      "details": "",
+      "timestamp": "2026-02-06T09:53:32.928898"
+    }
+  ],
+  "timestamp": "2026-02-06T09:53:32.929419"
+}
