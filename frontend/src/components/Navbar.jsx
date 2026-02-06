@@ -70,6 +70,16 @@ export default function Navbar() {
                 <Package size={16} />
                 Products
               </Link>
+
+              {/* Guides */}
+              <Link
+                to="/guides"
+                data-testid="nav-guides"
+                className="font-heading text-sm uppercase tracking-widest text-gray-400 hover:text-cc-blue transition-colors duration-200 flex items-center gap-2"
+              >
+                <BookOpen size={16} />
+                Guides
+              </Link>
             </nav>
 
             {/* Center Brand */}
