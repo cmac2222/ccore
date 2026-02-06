@@ -1,0 +1,130 @@
+{
+  "identity": {
+    "name": "Cheatcore",
+    "aesthetic": "Cyberpunk 2077 meets Vercel",
+    "description": "A high-performance, ultra-sleek marketplace for digital gaming products.",
+    "emotional_tone": "Elite, Tactical, High-Performance, Mysterious, Premium",
+    "design_principles": [
+      "Fusion over Imitation: Mix gaming grit with SaaS precision.",
+      "Emotion First: Every interaction should feel powerful and 'illegal' (in a cool way).",
+      "Content is King: Product cards are the heroes.",
+      "Negative Space: Use deep black voids to make neon pop.",
+      "Contrast: High contrast is mandatory for the cyberpunk look."
+    ]
+  },
+  "typography": {
+    "primary_font": "Space Grotesk",
+    "secondary_font": "Inter",
+    "mono_font": "JetBrains Mono",
+    "scale": {
+      "h1": "text-5xl md:text-7xl font-bold tracking-tighter uppercase",
+      "h2": "text-3xl md:text-5xl font-bold tracking-tight",
+      "h3": "text-2xl md:text-3xl font-semibold tracking-tight",
+      "body": "text-base md:text-lg text-gray-400 leading-relaxed",
+      "caption": "text-xs md:text-sm font-mono text-gray-500 uppercase tracking-widest"
+    }
+  },
+  "colors": {
+    "background": {
+      "default": "#050505",
+      "paper": "#0A0A0A",
+      "subtle": "#111111"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A1A1AA",
+      "muted": "#52525B"
+    },
+    "brand": {
+      "primary": "#00D4FF",
+      "secondary": "#39FF14",
+      "accent": "#FF0055"
+    },
+    "status": {
+      "success": "#39FF14",
+      "warning": "#FFD600",
+      "error": "#FF0055",
+      "info": "#00D4FF"
+    },
+    "border": {
+      "default": "rgba(255, 255, 255, 0.1)",
+      "hover": "rgba(0, 212, 255, 0.5)"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "backdrop-blur-xl bg-black/40 border border-white/10",
+    "neon_glow": "shadow-[0_0_20px_rgba(0,212,255,0.3)]",
+    "acid_glow": "shadow-[0_0_20px_rgba(57,255,20,0.3)]",
+    "grid_pattern": "bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]",
+    "tilt_card": "transition-transform duration-300 hover:scale-[1.02] hover:-translate-y-1"
+  },
+  "layout": {
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "section_spacing": "py-24 md:py-32",
+    "grid_gap": "gap-6 md:gap-8",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 auto-rows-[300px]"
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#00D4FF] text-black font-bold uppercase tracking-widest hover:bg-[#00D4FF]/80 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] transition-all duration-300 rounded-none skew-x-[-10deg]",
+      "secondary": "bg-transparent border border-[#39FF14] text-[#39FF14] font-bold uppercase tracking-widest hover:bg-[#39FF14]/10 transition-all duration-300 rounded-none skew-x-[-10deg]",
+      "ghost": "text-gray-400 hover:text-white transition-colors duration-200"
+    },
+    "cards": {
+      "product": "group relative overflow-hidden bg-[#0A0A0A] border border-white/10 hover:border-[#00D4FF]/50 transition-all duration-300",
+      "feature": "bg-black/40 backdrop-blur-md border border-white/5 p-8 hover:bg-white/5 transition-all duration-300"
+    },
+    "inputs": {
+      "default": "bg-black/50 border-white/10 focus:border-[#00D4FF] text-white placeholder:text-gray-600 focus:ring-1 focus:ring-[#00D4FF] transition-all duration-200"
+    }
+  },
+  "images": {
+    "hero_background": "https://images.unsplash.com/photo-1758404196311-70c62a445e9c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwxfHxjeWJlcnB1bmslMjBmdXR1cmlzdGljJTIwY2l0eSUyMG5pZ2h0JTIwbmVvbnxlbnwwfHx8fDE3NzAzNzA4MDB8MA&ixlib=rb-4.1.0&q=85",
+    "games": {
+      "cs2": "https://images.unsplash.com/photo-1539704810139-5d57d1c12385?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwyfHxjb3VudGVyJTIwc3RyaWtlJTIwZ2xvYmFsJTIwb2ZmZW5zaXZlJTIwc29sZGllciUyMHRhY3RpY2FsfGVufDB8fHx8MTc3MDM3MDgwMnww&ixlib=rb-4.1.0&q=85",
+      "rust": "https://images.unsplash.com/photo-1768966227235-b91459503ebb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwzfHxydXN0JTIwZ2FtZSUyMHN1cnZpdmFsJTIwZGFya3xlbnwwfHx8fDE3NzAzNzA4MDF8MA&ixlib=rb-4.1.0&q=85",
+      "general_robot": "https://images.unsplash.com/photo-1718453908945-f9520145837f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwbWVjaCUyMHJvYm90fGVufDB8fHx8MTc3MDM3MDgzMXww&ixlib=rb-4.1.0&q=85",
+      "minecraft": "https://images.unsplash.com/photo-1768877606176-e9a1c70ec776?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwxfHxwaXhlbCUyMGFydCUyMG5pZ2h0JTIwY2l0eXxlbnwwfHx8fDE3NzAzNzA4MzF8MA&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "motion": {
+    "libraries": ["framer-motion", "gsap"],
+    "defaults": {
+      "duration": 0.3,
+      "ease": "easeInOut"
+    },
+    "variants": {
+      "fadeInUp": {
+        "initial": { "opacity": 0, "y": 20 },
+        "animate": { "opacity": 1, "y": 0 }
+      },
+      "stagger": {
+        "animate": { "transition": { "staggerChildren": 0.1 } }
+      }
+    }
+  },
+  "accessibility": {
+    "contrast_check": "Ensure neon text has sufficient contrast against black backgrounds. Use drop shadows if necessary.",
+    "reduced_motion": "Respect prefers-reduced-motion media query.",
+    "aria_labels": "All icon buttons must have aria-labels."
+  },
+  "instructions_to_main_agent": [
+    "Use 'Space Grotesk' for all headings and 'Inter' for body text.",
+    "Implement the 'Bento Grid' for the Status Page.",
+    "Use the glassmorphism classes defined in visual_enhancers for the sticky navbar.",
+    "Ensure the primary background is always #050505, not generic black.",
+    "Use the 'Electric Blue' (#00D4FF) for primary actions and 'Acid Green' (#39FF14) for success states/secondary accents.",
+    "Implement custom cursors or hover effects that feel 'cybernetic'.",
+    "Use the provided image URLs for the respective game categories.",
+    "For the 'Hero Section', implement a 3D tilt effect on the main visual card.",
+    "Do NOT use gradients for the main background; keep it solid #050505 with subtle grid overlays."
+  ],
+  "universal_guidelines": [
+    "Don't make generic centered layouts.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters.",
+    "You MUST NOT apply universal transition (transition: all).",
+    "NEVER use AI assistant Emoji characters for icons.",
+    "Use 2-3x more spacing than feels comfortable."
+  ]
+}
