@@ -10,6 +10,7 @@ import GameProductsPage from './pages/GameProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import DashboardPage from './pages/DashboardPage';
 import CheckoutSuccess from './pages/CheckoutSuccess';
+import GuidesPage from './pages/GuidesPage';
 import { Toaster } from './components/ui/sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
