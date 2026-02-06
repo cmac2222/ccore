@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Shield } from 'lucide-react';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-const STATUS_CONFIG = {
-  undetected: { color: '#39FF14', label: 'Undetected', pulseClass: 'status-undetected' },
-  testing: { color: '#FFD600', label: 'Testing', pulseClass: 'status-testing' },
-  updating: { color: '#00D4FF', label: 'Updating', pulseClass: 'status-updating' },
-  detected: { color: '#FF0055', label: 'Detected', pulseClass: 'status-detected' },
-};
-
-// Map game names to their logo files in /public/logos/
 const GAME_LOGOS = {
   'Rust': '/logos/rust.jpg',
   'Valorant': '/logos/valorant.svg',
@@ -24,146 +16,20 @@ const GAME_LOGOS = {
   'Minecraft': '/logos/minecraft.svg',
 };
 
-// Custom sort order - Rust first
 const GAME_ORDER = ['Rust', 'Valorant', 'CS2', 'Marvel Rivals', 'Overwatch', 'Arc Raiders', 'Minecraft'];
 
-function GameSection({ game, products, defaultOpen }) {
-  const [open, setOpen] = useState(defaultOpen);
-  const logoUrl = GAME_LOGOS[game];
-  const udCount = products.filter(p => p.status === 'undetected').length;
+const GAME_ACCENTS = {
+  'Rust': '#CD412B',
+  'Valorant': '#FF4655',
+  'CS2': '#DE9B35',
+  'Marvel Rivals': '#ED1D24',
+  'Overwatch': '#F99E1A',
+  'Arc Raiders': '#00D4FF',
+  'Minecraft': '#6AAC2B',
+};
 
-  return (
-    <motion.div
-      data-testid={`game-section-${game.toLowerCase().replace(/\s/g, '-')}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="border border-white/10 bg-cc-paper overflow-hidden"
-    >
-      {/* Game header */}
-      <button
-        data-testid={`game-toggle-${game.toLowerCase().replace(/\s/g, '-')}`}
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 md:px-8 py-6 hover:bg-white/[0.02] transition-colors duration-200"
-      >
-        <div className="flex items-center gap-5">
-          {/* Real game logo */}
-          <div className="w-12 h-12 flex-shrink-0 rounded overflow-hidden bg-cc-subtle border border-white/10">
-            {logoUrl ? (
-              <img
-                src={logoUrl}
-                alt={`${game} logo`}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:Space Grotesk;font-size:14px;font-weight:bold;color:#00D4FF">${game[0]}</span>`;
-                }}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <span className="font-heading text-sm font-bold text-cc-blue">{game[0]}</span>
-              </div>
-            )}
-          </div>
-          <div className="text-left">
-            <h3 className="font-heading text-xl md:text-2xl font-bold text-white uppercase tracking-tight">{game}</h3>
-            <p className="font-mono text-xs uppercase tracking-widest text-gray-600 mt-0.5">
-              {products.length} {products.length === 1 ? 'product' : 'products'} available
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-5">
-          {udCount > 0 && (
-            <span className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-cc-green/10 border border-cc-green/20">
-              <div className="w-2 h-2 rounded-full bg-cc-green status-undetected" />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-cc-green">{udCount} Undetected</span>
-            </span>
-          )}
-          <ChevronDown
-            size={20}
-            className={`text-gray-500 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
-          />
-        </div>
-      </button>
-
-      {/* Expanded products */}
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
-          >
-            <div className="border-t border-white/5 px-4 md:px-6 py-4 space-y-2">
-              {products.map((product, i) => {
-                const statusCfg = STATUS_CONFIG[product.status] || STATUS_CONFIG.undetected;
-                return (
-                  <motion.div
-                    key={product.product_id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06 }}
-                  >
-                    <Link
-                      to={`/products/${product.product_id}`}
-                      data-testid={`product-link-${product.product_id}`}
-                      className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-5 px-5 md:px-6 bg-black/30 border border-white/5 hover:border-cc-blue/30 hover:bg-cc-blue/[0.03] transition-colors duration-200"
-                    >
-                      <div className="flex items-center gap-4 flex-1 min-w-0">
-                        {/* Status indicator */}
-                        <div className={`w-3 h-3 rounded-full flex-shrink-0 ${statusCfg.pulseClass}`}
-                          style={{ backgroundColor: statusCfg.color }}
-                        />
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-3 flex-wrap">
-                            <h4 className="font-heading text-lg font-bold text-white group-hover:text-cc-blue transition-colors duration-200">
-                              {product.name}
-                            </h4>
-                            <span className="inline-block px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-widest border"
-                              style={{
-                                borderColor: product.accent_color + '40',
-                                color: product.accent_color,
-                                backgroundColor: product.accent_color + '10'
-                              }}
-                            >
-                              {product.tier}
-                            </span>
-                            <span className="font-mono text-[10px] uppercase tracking-widest"
-                              style={{ color: statusCfg.color }}
-                            >
-                              {statusCfg.label}
-                            </span>
-                          </div>
-                          <p className="text-sm text-gray-500 mt-1 line-clamp-1">{product.description}</p>
-
-                          {/* Features row */}
-                          <div className="flex flex-wrap gap-1.5 mt-3">
-                            {product.features.map((f, fi) => (
-                              <span key={fi} className="text-[10px] font-mono text-gray-500 bg-white/5 px-2 py-0.5">{f}</span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Price + arrow */}
-                      <div className="flex items-center gap-5 flex-shrink-0 sm:ml-4 pl-7 sm:pl-0">
-                        <div className="text-left sm:text-right">
-                          <span className="font-heading text-2xl font-bold text-white">${product.price}</span>
-                          <span className="text-[10px] text-gray-600 font-mono block">/month</span>
-                        </div>
-                        <ArrowRight size={18} className="text-gray-700 group-hover:text-cc-blue transition-colors duration-200" />
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
+function toSlug(name) {
+  return name.toLowerCase().replace(/\s+/g, '-');
 }
 
 export default function ProductsPage() {
@@ -175,56 +41,61 @@ export default function ProductsPage() {
     axios.get(`${API}/games`).then(r => setGames(r.data)).catch(() => {});
   }, []);
 
-  // Group products by game and sort by custom order (Rust first)
-  const gameGroups = GAME_ORDER
-    .map(gameName => ({
-      name: gameName,
-      products: products.filter(p => p.game === gameName),
-    }))
-    .filter(g => g.products.length > 0);
+  const gameCards = GAME_ORDER
+    .map(name => {
+      const gameProducts = products.filter(p => p.game === name);
+      if (gameProducts.length === 0) return null;
+      const udCount = gameProducts.filter(p => p.status === 'undetected').length;
+      const lowestPrice = Math.min(...gameProducts.map(p => p.price));
+      return { name, products: gameProducts, udCount, lowestPrice, slug: toSlug(name) };
+    })
+    .filter(Boolean);
 
-  // Add any games not in GAME_ORDER at the end
+  // Add any games not in the predefined order
   const orderedNames = new Set(GAME_ORDER);
-  const extraGames = games
-    .filter(g => !orderedNames.has(g.name))
-    .map(g => ({
-      name: g.name,
-      products: products.filter(p => p.game === g.name),
-    }))
-    .filter(g => g.products.length > 0);
-
-  const allGroups = [...gameGroups, ...extraGames];
+  games.forEach(g => {
+    if (!orderedNames.has(g.name)) {
+      const gameProducts = products.filter(p => p.game === g.name);
+      if (gameProducts.length > 0) {
+        gameCards.push({
+          name: g.name,
+          products: gameProducts,
+          udCount: gameProducts.filter(p => p.status === 'undetected').length,
+          lowestPrice: Math.min(...gameProducts.map(p => p.price)),
+          slug: toSlug(g.name),
+        });
+      }
+    }
+  });
 
   return (
     <div data-testid="products-page" className="min-h-screen bg-cc-bg pt-28 pb-24">
-      {/* Subtle background */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 grid-overlay" />
-        <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-cc-blue/[0.02] rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] bg-cc-green/[0.015] rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-cc-blue/[0.02] rounded-full blur-[140px]" />
+        <div className="absolute bottom-1/3 left-0 w-[400px] h-[400px] bg-cc-green/[0.015] rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative max-w-5xl mx-auto px-6 md:px-12">
+      <div className="relative max-w-6xl mx-auto px-6 md:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-14"
+          className="mb-16"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-cc-blue mb-4">// Browse Collection</p>
-          <h1 className="font-heading text-4xl md:text-6xl font-bold tracking-tighter uppercase text-white mb-4">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-cc-blue mb-4">// Select Your Game</p>
+          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter uppercase text-white mb-4">
             Products
           </h1>
-          <p className="text-lg text-gray-400 max-w-lg">
-            Select a game below to browse available software.
+          <p className="text-base md:text-lg text-gray-400 max-w-xl">
+            Choose a game to browse our premium tools. Instant delivery, 24/7 support, and transparent status on every product.
           </p>
 
-          {/* Quick stats */}
           <div className="flex gap-10 mt-10 pt-6 border-t border-white/10">
             <div>
               <p className="font-heading text-3xl font-bold text-white">{products.length}</p>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-gray-600 mt-1">Total Products</p>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-gray-600 mt-1">Products</p>
             </div>
             <div>
               <p className="font-heading text-3xl font-bold text-cc-green">{products.filter(p => p.status === 'undetected').length}</p>
@@ -232,28 +103,123 @@ export default function ProductsPage() {
             </div>
             <div>
               <p className="font-heading text-3xl font-bold text-white">{games.length}</p>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-gray-600 mt-1">Games Supported</p>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-gray-600 mt-1">Games</p>
             </div>
           </div>
         </motion.div>
 
-        {/* Game accordion list */}
-        <div className="space-y-4">
-          {allGroups.map((group, i) => (
-            <GameSection
-              key={group.name}
-              game={group.name}
-              products={group.products}
-              defaultOpen={i === 0}
-            />
-          ))}
+        {/* Game Cards Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {gameCards.map((game, i) => {
+            const accent = GAME_ACCENTS[game.name] || '#00D4FF';
+            return (
+              <motion.div
+                key={game.name}
+                data-testid={`game-card-${game.slug}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+              >
+                <Link
+                  to={`/products/${game.slug}`}
+                  className="group relative block bg-cc-paper border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300"
+                >
+                  {/* Accent glow on hover */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `radial-gradient(ellipse at bottom, ${accent}10, transparent 70%)` }}
+                  />
+                  {/* Top accent line on hover */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: `linear-gradient(to right, transparent, ${accent}, transparent)` }}
+                  />
+
+                  <div className="relative p-7">
+                    {/* Logo + Game Name */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-14 h-14 flex-shrink-0 rounded overflow-hidden bg-cc-subtle border border-white/10 group-hover:border-white/20 transition-colors duration-300">
+                        <img
+                          src={GAME_LOGOS[game.name]}
+                          alt={game.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.parentElement.innerHTML = `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:Space Grotesk;font-size:16px;font-weight:bold;color:${accent}">${game.name[0]}</span>`;
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-heading text-xl font-bold text-white uppercase tracking-tight group-hover:text-white transition-colors duration-200">
+                          {game.name}
+                        </h3>
+                        <p className="font-mono text-[10px] uppercase tracking-widest text-gray-600 mt-0.5">
+                          {game.products.length} {game.products.length === 1 ? 'product' : 'products'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Status + Price row */}
+                    <div className="flex items-center justify-between mb-5">
+                      {game.udCount > 0 ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-cc-green status-undetected" />
+                          <span className="font-mono text-[10px] uppercase tracking-widest text-cc-green">
+                            {game.udCount} Undetected
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-cc-yellow status-testing" />
+                          <span className="font-mono text-[10px] uppercase tracking-widest text-cc-yellow">Testing</span>
+                        </div>
+                      )}
+                      <div className="text-right">
+                        <span className="text-[10px] text-gray-600 font-mono uppercase tracking-widest">From </span>
+                        <span className="font-heading text-lg font-bold text-white">${game.lowestPrice}</span>
+                      </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="flex items-center justify-between pt-5 border-t border-white/5">
+                      <span className="font-heading text-xs uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors duration-200">
+                        Browse Products
+                      </span>
+                      <ArrowRight size={16} className="text-gray-600 group-hover:text-cc-blue group-hover:translate-x-1 transition-all duration-200" />
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {allGroups.length === 0 && (
+        {gameCards.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-gray-600 font-mono text-sm">Loading products...</p>
+            <p className="text-gray-600 font-mono text-sm">Loading games...</p>
           </div>
         )}
+
+        {/* Trust bar */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="mt-16 pt-8 border-t border-white/5 flex flex-wrap items-center justify-center gap-8 text-center"
+        >
+          <div className="flex items-center gap-2 text-gray-600">
+            <Shield size={14} />
+            <span className="font-mono text-[10px] uppercase tracking-widest">Anti-Cheat Tested</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-600">
+            <div className="w-1.5 h-1.5 rounded-full bg-cc-green" />
+            <span className="font-mono text-[10px] uppercase tracking-widest">Instant Delivery</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-600">
+            <div className="w-1.5 h-1.5 rounded-full bg-cc-blue" />
+            <span className="font-mono text-[10px] uppercase tracking-widest">24/7 Support</span>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
