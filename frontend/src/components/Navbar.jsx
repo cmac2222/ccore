@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, User, LogOut, LayoutDashboard, Key, ShieldCheck, Menu, X } from 'lucide-react';
+import { ChevronDown, User, LogOut, LayoutDashboard, Key, ShieldCheck, Menu, X, Package } from 'lucide-react';
 import { useAuth } from '../App';
 import AuthModal from './AuthModal';
-import axios from 'axios';
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -14,11 +11,8 @@ export default function Navbar() {
   const [showAuth, setShowAuth] = useState(false);
   const [authMode, setAuthMode] = useState('login');
   const [showAccount, setShowAccount] = useState(false);
-  const [showProducts, setShowProducts] = useState(false);
-  const [games, setGames] = useState([]);
   const [mobileOpen, setMobileOpen] = useState(false);
   const accountRef = useRef(null);
-  const productsRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
 
