@@ -469,8 +469,8 @@ async def checkout_status(session_id: str, request: Request, user=Depends(get_cu
         if new_status == "paid":
             # Generate license key
             license_key = f"CC-{uuid.uuid4().hex[:4].upper()}-{uuid.uuid4().hex[:4].upper()}-{uuid.uuid4().hex[:4].upper()}-{uuid.uuid4().hex[:4].upper()}"
-            duration = txn.get("duration", "monthly")
-            days = {"daily": 1, "weekly": 7, "monthly": 30}.get(duration, 30)
+            duration = txn.get("duration", "1month")
+            days = {"1day": 1, "daily": 1, "3day": 3, "1week": 7, "weekly": 7, "1month": 30, "monthly": 30}.get(duration, 30)
             expires = (datetime.now(timezone.utc) + timedelta(days=days)).isoformat()
             
             await db.licenses.insert_one({
