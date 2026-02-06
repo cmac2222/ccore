@@ -178,8 +178,8 @@ export default function HomePage() {
                   );
                 })}
               </div>
-              {/* Glow underneath */}
-              <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-cc-blue/20 blur-3xl rounded-full" />
+              {/* Blue glow outline underneath - behind everything */}
+              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-4/5 h-16 bg-cc-blue/15 blur-2xl rounded-full pointer-events-none" style={{ zIndex: 0 }} />
             </motion.div>
           </div>
         </div>
