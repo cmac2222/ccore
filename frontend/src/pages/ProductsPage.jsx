@@ -13,66 +13,23 @@ const STATUS_CONFIG = {
   detected: { color: '#FF0055', label: 'Detected', pulseClass: 'status-detected' },
 };
 
-// Game logos as inline SVG components for reliability
-const GameLogos = {
-  Rust: () => (
-    <svg viewBox="0 0 40 40" className="w-full h-full">
-      <rect width="40" height="40" rx="4" fill="#CD412B" />
-      <path d="M8 28V12h4.5c2 0 3.5.5 4.5 1.5S18.5 15.5 18.5 17c0 1-.2 1.8-.7 2.5s-1.2 1.1-2 1.3l3.2 7.2h-3.5l-2.8-6.5H11.5V28H8zm3.5-9.5h1.2c.8 0 1.4-.2 1.8-.7.4-.4.6-1 .6-1.8 0-.7-.2-1.3-.6-1.7-.4-.4-1-.6-1.8-.6h-1.2v4.8zM33 28h-3.2l-1-3h-4.6l-1 3H20l4.8-16h3.5L33 28zm-5-6l-1.5-5.2L25 22h3z" fill="white"/>
-    </svg>
-  ),
-  Valorant: () => (
-    <svg viewBox="0 0 40 40" className="w-full h-full">
-      <rect width="40" height="40" rx="4" fill="#FF4655" />
-      <path d="M8 12l8 16h4L12 12H8zm12 0v16h4l8-16h-4l-6 12V12h-2z" fill="white"/>
-    </svg>
-  ),
-  'Marvel Rivals': () => (
-    <svg viewBox="0 0 40 40" className="w-full h-full">
-      <rect width="40" height="40" rx="4" fill="#ED1D24" />
-      <path d="M6 28V12h4l4 10 4-10h4v16h-3V17l-3.5 9h-3L9 17v11H6z" fill="white"/>
-      <path d="M26 28V12h4.5c1.5 0 2.7.4 3.5 1.2.8.8 1.2 1.8 1.2 3.2 0 1.2-.3 2.2-1 3-.6.7-1.5 1.2-2.5 1.3L35 28h-3.5l-2.5-6.5H29V28h-3zm3-9.5h1.2c.7 0 1.2-.2 1.5-.5.4-.4.5-.9.5-1.5 0-.6-.2-1.1-.5-1.5-.3-.3-.8-.5-1.5-.5H29v4z" fill="white"/>
-    </svg>
-  ),
-  Overwatch: () => (
-    <svg viewBox="0 0 40 40" className="w-full h-full">
-      <rect width="40" height="40" rx="4" fill="#F99E1A" />
-      <circle cx="20" cy="20" r="10" fill="none" stroke="white" strokeWidth="3"/>
-      <circle cx="20" cy="20" r="3" fill="white"/>
-      <path d="M20 10v4M20 26v4M10 20h4M26 20h4" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  ),
-  'Arc Raiders': () => (
-    <svg viewBox="0 0 40 40" className="w-full h-full">
-      <rect width="40" height="40" rx="4" fill="#1A1A2E" />
-      <path d="M20 8L6 32h6l2.5-5h11L28 32h6L20 8zm0 9l3.5 7h-7L20 17z" fill="#00D4FF"/>
-    </svg>
-  ),
-  CS2: () => (
-    <svg viewBox="0 0 40 40" className="w-full h-full">
-      <rect width="40" height="40" rx="4" fill="#DE9B35" />
-      <circle cx="20" cy="20" r="11" fill="none" stroke="white" strokeWidth="2.5"/>
-      <circle cx="20" cy="20" r="2" fill="white"/>
-      <path d="M20 9v5M20 26v5M9 20h5M26 20h5" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  ),
-  Minecraft: () => (
-    <svg viewBox="0 0 40 40" className="w-full h-full">
-      <rect width="40" height="40" rx="4" fill="#3B8526" />
-      <rect x="8" y="8" width="24" height="24" fill="#6D4C2A" rx="2"/>
-      <rect x="12" y="12" width="6" height="6" fill="#5C3A1E"/>
-      <rect x="22" y="12" width="6" height="6" fill="#5C3A1E"/>
-      <rect x="14" y="22" width="12" height="6" fill="#5C3A1E"/>
-      <rect x="16" y="22" width="2" height="2" fill="#3B2510"/>
-      <rect x="22" y="22" width="2" height="2" fill="#3B2510"/>
-      <rect x="8" y="8" width="24" height="24" rx="2" fill="none" stroke="#8B6914" strokeWidth="1.5"/>
-    </svg>
-  ),
+// Map game names to their logo files in /public/logos/
+const GAME_LOGOS = {
+  'Rust': '/logos/rust.jpg',
+  'Valorant': '/logos/valorant.svg',
+  'Marvel Rivals': '/logos/marvel-rivals.jpg',
+  'Overwatch': '/logos/overwatch.jpg',
+  'Arc Raiders': '/logos/arc-raiders.jpg',
+  'CS2': '/logos/cs2.jpg',
+  'Minecraft': '/logos/minecraft.svg',
 };
+
+// Custom sort order - Rust first
+const GAME_ORDER = ['Rust', 'Valorant', 'CS2', 'Marvel Rivals', 'Overwatch', 'Arc Raiders', 'Minecraft'];
 
 function GameSection({ game, products, defaultOpen }) {
   const [open, setOpen] = useState(defaultOpen);
-  const LogoComponent = GameLogos[game];
+  const logoUrl = GAME_LOGOS[game];
   const udCount = products.filter(p => p.status === 'undetected').length;
 
   return (
@@ -89,10 +46,20 @@ function GameSection({ game, products, defaultOpen }) {
         className="w-full flex items-center justify-between px-6 md:px-8 py-6 hover:bg-white/[0.02] transition-colors duration-200"
       >
         <div className="flex items-center gap-5">
-          {/* Game logo */}
-          <div className="w-12 h-12 flex-shrink-0 rounded overflow-hidden">
-            {LogoComponent ? <LogoComponent /> : (
-              <div className="w-full h-full bg-cc-blue/20 border border-cc-blue/30 flex items-center justify-center">
+          {/* Real game logo */}
+          <div className="w-12 h-12 flex-shrink-0 rounded overflow-hidden bg-cc-subtle border border-white/10">
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt={`${game} logo`}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.innerHTML = `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:Space Grotesk;font-size:14px;font-weight:bold;color:#00D4FF">${game[0]}</span>`;
+                }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
                 <span className="font-heading text-sm font-bold text-cc-blue">{game[0]}</span>
               </div>
             )}
@@ -208,10 +175,25 @@ export default function ProductsPage() {
     axios.get(`${API}/games`).then(r => setGames(r.data)).catch(() => {});
   }, []);
 
-  const gameGroups = games.map(g => ({
-    name: g.name,
-    products: products.filter(p => p.game === g.name),
-  })).filter(g => g.products.length > 0);
+  // Group products by game and sort by custom order (Rust first)
+  const gameGroups = GAME_ORDER
+    .map(gameName => ({
+      name: gameName,
+      products: products.filter(p => p.game === gameName),
+    }))
+    .filter(g => g.products.length > 0);
+
+  // Add any games not in GAME_ORDER at the end
+  const orderedNames = new Set(GAME_ORDER);
+  const extraGames = games
+    .filter(g => !orderedNames.has(g.name))
+    .map(g => ({
+      name: g.name,
+      products: products.filter(p => p.game === g.name),
+    }))
+    .filter(g => g.products.length > 0);
+
+  const allGroups = [...gameGroups, ...extraGames];
 
   return (
     <div data-testid="products-page" className="min-h-screen bg-cc-bg pt-28 pb-24">
@@ -257,7 +239,7 @@ export default function ProductsPage() {
 
         {/* Game accordion list */}
         <div className="space-y-4">
-          {gameGroups.map((group, i) => (
+          {allGroups.map((group, i) => (
             <GameSection
               key={group.name}
               game={group.name}
@@ -267,7 +249,7 @@ export default function ProductsPage() {
           ))}
         </div>
 
-        {gameGroups.length === 0 && (
+        {allGroups.length === 0 && (
           <div className="text-center py-20">
             <p className="text-gray-600 font-mono text-sm">Loading products...</p>
           </div>
