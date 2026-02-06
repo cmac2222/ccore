@@ -277,7 +277,33 @@ async def google_session(request: Request, response: Response):
 
 PRODUCTS = [
     # Rust
-    {"product_id": "rust-disconnect", "name": "Disconnect", "game": "Rust", "description": "Premium external Rust tool with full ESP, aimbot, and miscellaneous features. Unmatched performance.", "features": ["ESP/Wallhack", "Aimbot", "Loot ESP", "Player Info", "Recoil Control"], "price": 29.99, "status": "undetected", "status_label": "Undetected", "image_url": "/placeholder-rust-1.jpg", "accent_color": "#00D4FF", "tier": "Premium"},
+    {"product_id": "rust-disconnect", "name": "Disconnect", "game": "Rust", "description": "Unlock your full potential in Rust with our undetected, high-quality external cheat. Featuring precision Aimbot, advanced ESP, full World ESP, and lightweight performance — the perfect tool to dominate your opponents safely and reliably.", "features": ["Aimbot", "ESP", "World ESP", "Visuals", "Movement", "Misc"], "price": 7.99, "status": "undetected", "status_label": "Undetected", "image_url": "https://disconnectcheats.com/uploads/monthly_2025_02/Rust-External.jpeg.30a40be191dc488a450fc43faacb6a1e.jpeg", "accent_color": "#00D4FF", "tier": "External",
+     "tagline": "Dominate Rust with precision and control.",
+     "screenshots": [
+       "https://disconnectcheats.com/uploads/monthly_2025_02/Rust-External.jpeg.30a40be191dc488a450fc43faacb6a1e.jpeg",
+       "https://disconnectcheats.com/uploads/monthly_2025_02/Screenshot_1.jpg.f6166451117c197bbd31b18978021838.jpg",
+       "https://disconnectcheats.com/uploads/monthly_2025_01/NewRust1.jpg.5b3011f921c83599453d9510ee0b9896.jpg",
+       "https://disconnectcheats.com/uploads/monthly_2025_01/NewRust3.jpg.848735f64456afd77a2c0a3bbda9e081.jpg",
+       "https://disconnectcheats.com/uploads/monthly_2025_01/NewRust4.jpg.085976bc8abe4bfa1340b0672883b988.jpg"
+     ],
+     "requirements": ["Windows 10/11", "Intel / AMD", "Stream Proof", "No USB Required"],
+     "pricing_tiers": [
+       {"key": "1day", "label": "1 Day", "price": 7.99, "days": 1},
+       {"key": "3day", "label": "3 Day", "price": 15.99, "days": 3},
+       {"key": "1week", "label": "1 Week", "price": 29.99, "days": 7},
+       {"key": "1month", "label": "1 Month", "price": 59.99, "days": 30}
+     ],
+     "feature_categories": {
+       "Aimbot": ["Memory Aimbot", "Silent Aimbot", "Hitbox Selection (Head, Chest, Stomach, Pelvis)", "Smoothing", "Target Teammates", "Hit Chance (0-100%)", "Draw FOV", "Aimbot FOV", "Target Line", "Fire Speed", "Fast Bullet"],
+       "Weapon": ["Always Automatic", "Instant Eoka", "Legit Instant Eoka (Success %)", "Instant Bow", "Shotgun Nospread", "Thick Bullet", "Bow Thick Bullet Override", "Recoil Amount X/Y (0-100%)", "Spread Amount (0-100%)"],
+       "ESP": ["Show Teammates", "Show Wounded", "Show Sleepers", "Show Dead", "Name", "Box (Corner, Full)", "Held Item", "Distance", "Skeleton", "Bounding Box", "Team ID"],
+       "Visuals": ["Chams (18 material selections)", "Radar", "Radar Distance Visualizer", "Radar Render Distance", "Player Flags (Wounded, Safezone, Mounted)", "OOF Indicator", "Breathing OOF Indicator", "Hotbar ESP", "Icon Hotbar ESP", "Hand Chams", "Weapon Chams"],
+       "Movement": ["No Fall Damage", "Infinite Jump", "Flyhack", "Suicide", "Interactive Debug Camera", "Omni Sprint", "Shoot While Jumping"],
+       "World ESP": ["Ore ESP (Sulfur, Metal, Stone)", "Collectable ESP (Hemp, Mushroom, Potato, Pumpkin, Corn, Food Crate)", "Deployable ESP (Tool Cupboard, Workbenches, Landmine)", "Vehicle ESP (Patrol Heli, Minicopter, Scrap Heli, Bradley, Horse, Motor Bike)", "Loot ESP (Barrel, Oil Barrel, Bradley Crate, Heli Crate, Elite Crate, Military Crate)"],
+       "Misc": ["Custom Stars/Clouds/Sky", "Zoom", "FOV Changer", "Time Changer", "Remove Layers", "Battle Mode", "Hitbox Override", "Fast Loot", "Instant Revive/Pickup", "Custom Hit Sound", "Friend/Enemy System", "Enemy In Render Alert"],
+       "Settings": ["Menu Color", "Menu Keybind", "Watermark", "Language (English, Chinese)", "ESP Font (Pixel, Roboto, Minecraft)", "Crosshair (Dot, Plus, Cross, CSGO)", "Configs (Legit, Rage, Other)", "Rainbow Colors"]
+     }
+    },
     {"product_id": "rust-fluent", "name": "Fluent", "game": "Rust", "description": "Lightweight Rust tool focused on legit gameplay. Clean UI with essential features.", "features": ["ESP", "Soft Aimbot", "Radar", "No Recoil"], "price": 19.99, "status": "undetected", "status_label": "Undetected", "image_url": "/placeholder-rust-2.jpg", "accent_color": "#39FF14", "tier": "Standard"},
     {"product_id": "rust-serenity", "name": "Serenity", "game": "Rust", "description": "Budget-friendly option with core features for casual players.", "features": ["ESP", "Basic Aimbot", "Radar"], "price": 12.99, "status": "testing", "status_label": "Testing", "image_url": "/placeholder-rust-3.jpg", "accent_color": "#00D4FF", "tier": "Lite"},
     # Valorant
