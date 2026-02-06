@@ -196,6 +196,7 @@ export default function Navbar() {
               <div className="px-6 py-4 space-y-4">
                 <Link to="/status" className="block text-sm uppercase tracking-widest text-gray-400 hover:text-cc-blue">Status</Link>
                 <Link to="/products" className="block text-sm uppercase tracking-widest text-gray-400 hover:text-cc-blue">Products</Link>
+                <Link to="/guides" className="block text-sm uppercase tracking-widest text-gray-400 hover:text-cc-blue">Guides</Link>
                 {user ? (
                   <>
                     <Link to="/dashboard" className="block text-sm uppercase tracking-widest text-gray-400 hover:text-cc-blue">Dashboard</Link>
