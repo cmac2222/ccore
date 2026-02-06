@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Check, Shield, Zap, Clock } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Shield, Zap, Clock } from 'lucide-react';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -33,6 +33,13 @@ const GAME_ACCENTS = {
   'Minecraft': '#6AAC2B',
 };
 
+// Product images — Rust software pulled from cheatvault
+const PRODUCT_IMAGES = {
+  'rust-disconnect': 'https://cheatvault.net/images/index/rust_disconnect.webp',
+  'rust-fluent': 'https://bucket.cheatvault.net/products/rust-fluent-cheat/f4.png',
+  'rust-serenity': 'https://bucket.cheatvault.net/products/rust-serenity-cheat/s4.jpg',
+};
+
 function slugToName(slug) {
   const map = {
     'rust': 'Rust',
@@ -53,7 +60,6 @@ export default function GameProductsPage() {
   const [loading, setLoading] = useState(true);
 
   const gameName = slugToName(gameSlug);
-  const accent = GAME_ACCENTS[gameName] || '#00D4FF';
   const logo = GAME_LOGOS[gameName];
 
   useEffect(() => {
@@ -62,7 +68,6 @@ export default function GameProductsPage() {
       .then(r => {
         setProducts(r.data);
         if (r.data.length === 0) {
-          // Not a valid game slug — might be a product ID, redirect
           navigate(`/product/${gameSlug}`, { replace: true });
         }
       })
@@ -83,7 +88,7 @@ export default function GameProductsPage() {
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 grid-overlay" />
         <div className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full blur-[140px]"
-          style={{ background: `${accent}08` }}
+          style={{ background: `${GAME_ACCENTS[gameName] || '#00D4FF'}08` }}
         />
       </div>
 
@@ -106,9 +111,7 @@ export default function GameProductsPage() {
         >
           <div className="flex items-center gap-6 mb-6">
             <div className="w-20 h-20 flex-shrink-0 rounded overflow-hidden bg-cc-subtle border border-white/10">
-              {logo && (
-                <img src={logo} alt={gameName} className="w-full h-full object-cover" />
-              )}
+              {logo && <img src={logo} alt={gameName} className="w-full h-full object-cover" />}
             </div>
             <div>
               <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter uppercase text-white">
@@ -134,6 +137,7 @@ export default function GameProductsPage() {
           {products.map((product, i) => {
             const statusCfg = STATUS_CONFIG[product.status] || STATUS_CONFIG.undetected;
             const isDisabled = product.status === 'detected';
+            const productImage = PRODUCT_IMAGES[product.product_id];
 
             return (
               <motion.div
@@ -161,50 +165,48 @@ export default function GameProductsPage() {
                   />
 
                   <div className="relative p-6 md:p-8">
-                    <div className="flex flex-col lg:flex-row lg:items-center gap-6">
-                      {/* Left: Product info */}
-                      <div className="flex-1 min-w-0">
-                        {/* Name row */}
-                        <div className="flex items-center gap-3 flex-wrap mb-2">
-                          <h2 className="font-heading text-2xl md:text-3xl font-bold text-white group-hover:text-cc-blue transition-colors duration-200 tracking-tight uppercase">
-                            {product.name}
-                          </h2>
-                          <span
-                            className="inline-block px-3 py-1 text-[10px] font-mono uppercase tracking-widest border font-semibold"
-                            style={{
-                              borderColor: product.accent_color + '50',
-                              color: product.accent_color,
-                              backgroundColor: product.accent_color + '10'
-                            }}
-                          >
-                            {product.tier}
-                          </span>
-                          <div className="flex items-center gap-2">
-                            <div className={`w-2.5 h-2.5 rounded-full ${statusCfg.pulseClass}`} style={{ backgroundColor: statusCfg.color }} />
-                            <span className="font-mono text-xs uppercase tracking-widest" style={{ color: statusCfg.color }}>
-                              {statusCfg.label}
-                            </span>
-                          </div>
+                    <div className="flex flex-col lg:flex-row lg:items-stretch gap-6">
+                      {/* Product image (if available) */}
+                      {productImage && (
+                        <div className="lg:w-64 xl:w-80 flex-shrink-0 overflow-hidden border border-white/10 group-hover:border-white/20 transition-colors duration-300">
+                          <img
+                            src={productImage}
+                            alt={product.name}
+                            className="w-full h-full object-cover min-h-[160px] lg:min-h-0"
+                          />
                         </div>
+                      )}
 
-                        {/* Description */}
-                        <p className="text-sm md:text-base text-gray-400 leading-relaxed mb-5 max-w-2xl">
-                          {product.description}
-                        </p>
+                      {/* Product info */}
+                      <div className="flex-1 min-w-0 flex flex-col justify-between">
+                        {/* Top: Name + status */}
+                        <div>
+                          <div className="flex items-center gap-3 flex-wrap mb-3">
+                            <h2 className="font-heading text-2xl md:text-3xl font-bold text-white group-hover:text-cc-blue transition-colors duration-200 tracking-tight uppercase">
+                              {product.name}
+                            </h2>
+                            <div className="flex items-center gap-2">
+                              <div className={`w-2.5 h-2.5 rounded-full ${statusCfg.pulseClass}`} style={{ backgroundColor: statusCfg.color }} />
+                              <span className="font-mono text-xs uppercase tracking-widest" style={{ color: statusCfg.color }}>
+                                {statusCfg.label}
+                              </span>
+                            </div>
+                          </div>
 
-                        {/* Features */}
-                        <div className="flex flex-wrap gap-2">
-                          {product.features.map((f, fi) => (
-                            <span key={fi} className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-400 bg-white/[0.04] border border-white/5 px-3 py-1.5">
-                              <Check size={10} className="text-cc-green flex-shrink-0" />
-                              {f}
-                            </span>
-                          ))}
+                          {/* Description */}
+                          <p className="text-sm md:text-base text-gray-400 leading-relaxed mb-4 max-w-2xl">
+                            {product.description}
+                          </p>
+
+                          {/* Type tag */}
+                          <span className="inline-flex items-center gap-2 text-xs font-mono text-gray-400 bg-white/[0.04] border border-white/5 px-3 py-1.5 uppercase tracking-widest">
+                            External
+                          </span>
                         </div>
                       </div>
 
                       {/* Right: Price + CTA */}
-                      <div className="flex lg:flex-col items-center lg:items-end gap-4 lg:gap-3 flex-shrink-0 lg:min-w-[180px]">
+                      <div className="flex lg:flex-col items-center lg:items-end justify-between lg:justify-center gap-4 lg:gap-3 flex-shrink-0 lg:min-w-[180px]">
                         <div className="text-left lg:text-right">
                           <span className="text-[10px] text-gray-600 font-mono uppercase tracking-widest block mb-0.5">Starting at</span>
                           <span className="font-heading text-3xl md:text-4xl font-bold text-white">${product.price}</span>
