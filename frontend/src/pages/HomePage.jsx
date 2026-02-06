@@ -131,34 +131,42 @@ export default function HomePage() {
               className="relative hidden lg:block"
             >
               <div className="relative w-full aspect-[4/3]">
+                {/* Blue glow outline BEHIND the images */}
+                <div className="absolute -inset-3 bg-cc-blue/15 blur-2xl rounded-lg pointer-events-none" />
+
                 {HERO_IMAGES.map((img, i) => {
                   const offset = ((i - heroIndex + HERO_IMAGES.length) % HERO_IMAGES.length);
+                  const isActive = offset === 0;
                   return (
                     <motion.div
                       key={i}
                       className="absolute inset-0 overflow-hidden border border-white/10"
                       animate={{
-                        rotateY: offset === 0 ? 0 : offset === 1 ? 15 : -15,
-                        rotateX: offset === 0 ? 0 : -5,
-                        scale: offset === 0 ? 1 : 0.85,
-                        x: offset === 0 ? 0 : offset === 1 ? 60 : -60,
-                        z: offset === 0 ? 0 : -100,
-                        opacity: offset === 0 ? 1 : 0.4,
+                        rotateY: isActive ? 0 : offset === 1 ? 15 : -15,
+                        rotateX: isActive ? 0 : -5,
+                        scale: isActive ? 1 : 0.85,
+                        x: isActive ? 0 : offset === 1 ? 60 : -60,
+                        z: isActive ? 0 : -100,
+                        opacity: isActive ? 1 : 0,
                       }}
                       transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
                       style={{
                         perspective: '1000px',
                         transformStyle: 'preserve-3d',
+                        zIndex: isActive ? 10 : 1,
+                        backfaceVisibility: 'hidden',
                       }}
                     >
                       <img
                         src={img.src}
                         alt={img.label}
                         className="w-full h-full object-cover"
+                        style={{ opacity: 1 }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-cc-bg/80 to-transparent" />
-                      {offset === 0 && (
-                        <div className="absolute bottom-0 left-0 right-0 p-6">
+                      {/* Subtle bottom fade for text readability only */}
+                      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+                      {isActive && (
+                        <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                           <div className="flex items-center gap-2 mb-1">
                             <div className="w-2 h-2 rounded-full bg-cc-green status-undetected" />
                             <span className="font-mono text-[10px] uppercase tracking-widest text-cc-green">Undetected</span>
