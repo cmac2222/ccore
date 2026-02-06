@@ -232,14 +232,19 @@ export default function ProductDetailPage() {
                 {/* Requirements */}
                 {requirements.length > 0 && (
                   <div className="mt-6 pt-5 border-t border-white/10">
-                    <h4 className="font-mono text-[10px] uppercase tracking-widest text-gray-600 mb-3">Requirements</h4>
-                    <div className="grid grid-cols-2 gap-2">
-                      {requirements.map((req, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-gray-400">
-                          <Check size={10} className="text-cc-green flex-shrink-0" />
-                          {req}
-                        </div>
-                      ))}
+                    <h4 className="font-heading text-xs uppercase tracking-widest text-white mb-4">System Requirements</h4>
+                    <div className="space-y-2.5">
+                      {requirements.map((req, i) => {
+                        const icons = { 'Windows': Monitor, 'Intel': Cpu, 'Stream': Eye, 'No USB': Lock };
+                        const iconKey = Object.keys(icons).find(k => req.includes(k));
+                        const IconComp = iconKey ? icons[iconKey] : Check;
+                        return (
+                          <div key={i} className="flex items-center gap-3 bg-black/30 border border-white/5 px-4 py-3">
+                            <IconComp size={16} className="text-cc-green flex-shrink-0" />
+                            <span className="text-sm text-gray-300 font-body">{req}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
