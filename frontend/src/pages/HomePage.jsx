@@ -7,9 +7,9 @@ import axios from 'axios';
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const HERO_IMAGES = [
-  'https://images.unsplash.com/photo-1758404196311-70c62a445e9c?w=1200&q=80',
-  'https://images.unsplash.com/photo-1539704810139-5d57d1c12385?w=1200&q=80',
-  'https://images.unsplash.com/photo-1718453908945-f9520145837f?w=1200&q=80',
+  { src: 'https://cheatvault.net/images/index/rust_disconnect.webp', label: 'Disconnect Rust' },
+  { src: 'https://bucket.cheatvault.net/products/rust-fluent-cheat/f4.png', label: 'Fluent Rust' },
+  { src: 'https://bucket.cheatvault.net/products/rust-serenity-cheat/s4.jpg', label: 'Serenity Rust' },
 ];
 
 const FEATURES = [
