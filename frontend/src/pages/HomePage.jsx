@@ -314,49 +314,98 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 md:py-32 relative">
-        <div className="absolute inset-0 grid-overlay" />
+      {/* Discord CTA - prominent */}
+      <section className="py-20 md:py-28 relative" data-testid="discord-section">
+        <div className="absolute inset-0 bg-[#5865F2]/[0.04]" />
         <div className="relative max-w-7xl mx-auto px-6 md:px-12 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
-              Ready to <span className="text-cc-blue neon-blue">Dominate</span>?
+            <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-[#5865F2]/20 border border-[#5865F2]/40">
+              <svg width="28" height="22" viewBox="0 0 71 55" fill="#5865F2">
+                <path d="M60.1 4.9A58.5 58.5 0 0045.4.2a.2.2 0 00-.2.1 40.8 40.8 0 00-1.8 3.7 54 54 0 00-16.2 0A37.5 37.5 0 0025.4.3a.2.2 0 00-.2-.1A58.4 58.4 0 0010.5 4.9a.2.2 0 00-.1.1C1.5 18.7-.9 32.2.3 45.5v.1a58.7 58.7 0 0017.6 8.9.2.2 0 00.3-.1 42 42 0 003.6-5.9.2.2 0 00-.1-.3 38.6 38.6 0 01-5.5-2.6.2.2 0 01 0-.4l1.1-.9a.2.2 0 01.2 0 41.8 41.8 0 0035.6 0 .2.2 0 01.2 0l1.1.9a.2.2 0 010 .4c-1.8 1-3.6 1.8-5.5 2.6a.2.2 0 00-.1.3 47.2 47.2 0 003.6 5.9.2.2 0 00.3.1A58.5 58.5 0 0070.3 45.6v-.1c1.4-15-2.3-28-9.8-39.5a.2.2 0 00-.1-.1zM23.7 37.3c-3.4 0-6.3-3.1-6.3-7s2.8-7 6.3-7 6.3 3.2 6.3 7-2.8 7-6.3 7zm23.2 0c-3.4 0-6.2-3.1-6.2-7s2.8-7 6.2-7 6.3 3.2 6.3 7-2.8 7-6.3 7z"/>
+              </svg>
+            </div>
+            <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+              Join the <span className="text-[#5865F2]">Community</span>
             </h2>
-            <p className="text-base text-gray-400 max-w-lg mx-auto mb-10">
-              Join thousands of players using Cheatcore to elevate their gameplay.
+            <p className="text-base text-gray-400 max-w-lg mx-auto mb-8">
+              Get live support, product updates, giveaways, and connect with thousands of players.
             </p>
-            <Link
-              to="/products"
-              data-testid="cta-shop-btn"
-              className="inline-flex items-center gap-2 px-10 py-4 bg-cc-blue text-black font-heading font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_40px_rgba(0,212,255,0.5)] transition-shadow duration-300 skew-x-[-8deg]"
+            <a
+              href="https://discord.gg/cheatcore"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="discord-join-btn"
+              className="inline-flex items-center gap-3 px-10 py-4 bg-[#5865F2] text-white font-heading font-bold uppercase tracking-widest text-sm hover:bg-[#4752C4] hover:shadow-[0_0_40px_rgba(88,101,242,0.4)] transition-all duration-300"
             >
-              <span className="inline-flex items-center gap-2 skew-x-[8deg]">
-                Browse Products <ArrowRight size={16} />
-              </span>
-            </Link>
+              <svg width="22" height="17" viewBox="0 0 71 55" fill="currentColor">
+                <path d="M60.1 4.9A58.5 58.5 0 0045.4.2a.2.2 0 00-.2.1 40.8 40.8 0 00-1.8 3.7 54 54 0 00-16.2 0A37.5 37.5 0 0025.4.3a.2.2 0 00-.2-.1A58.4 58.4 0 0010.5 4.9a.2.2 0 00-.1.1C1.5 18.7-.9 32.2.3 45.5v.1a58.7 58.7 0 0017.6 8.9.2.2 0 00.3-.1 42 42 0 003.6-5.9.2.2 0 00-.1-.3 38.6 38.6 0 01-5.5-2.6.2.2 0 01 0-.4l1.1-.9a.2.2 0 01.2 0 41.8 41.8 0 0035.6 0 .2.2 0 01.2 0l1.1.9a.2.2 0 010 .4c-1.8 1-3.6 1.8-5.5 2.6a.2.2 0 00-.1.3 47.2 47.2 0 003.6 5.9.2.2 0 00.3.1A58.5 58.5 0 0070.3 45.6v-.1c1.4-15-2.3-28-9.8-39.5a.2.2 0 00-.1-.1zM23.7 37.3c-3.4 0-6.3-3.1-6.3-7s2.8-7 6.3-7 6.3 3.2 6.3 7-2.8 7-6.3 7zm23.2 0c-3.4 0-6.2-3.1-6.2-7s2.8-7 6.2-7 6.3 3.2 6.3 7-2.8 7-6.3 7z"/>
+              </svg>
+              Join Our Discord
+            </a>
           </motion.div>
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FaqSection />
+
       {/* Footer */}
-      <footer className="border-t border-white/10 py-12">
+      <footer className="border-t border-white/10 py-16">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="font-heading text-lg font-bold tracking-tighter uppercase">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            {/* Brand */}
+            <div className="md:col-span-1">
+              <h3 className="font-heading text-lg font-bold tracking-tighter uppercase mb-3">
                 <span className="text-white">Cheat</span><span className="text-cc-blue">core</span>
               </h3>
-              <p className="text-xs text-gray-600 font-mono mt-1">Premium Gaming Enhancement</p>
+              <p className="text-xs text-gray-600 leading-relaxed">Premium gaming enhancement software. Trusted by thousands of players worldwide.</p>
             </div>
-            <div className="flex gap-8">
-              <Link to="/products" className="text-xs text-gray-500 hover:text-white transition-colors duration-200 font-mono uppercase tracking-widest">Products</Link>
-              <Link to="/status" className="text-xs text-gray-500 hover:text-white transition-colors duration-200 font-mono uppercase tracking-widest">Status</Link>
+            {/* Quick Links */}
+            <div>
+              <h4 className="font-heading text-xs uppercase tracking-widest text-white mb-4">Products</h4>
+              <div className="space-y-2">
+                <Link to="/products/rust" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">Rust</Link>
+                <Link to="/products/valorant" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">Valorant</Link>
+                <Link to="/products/cs2" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">CS2</Link>
+                <Link to="/products/overwatch" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">Overwatch</Link>
+                <Link to="/products/minecraft" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">Minecraft</Link>
+              </div>
             </div>
-            <p className="text-xs text-gray-700 font-mono">&copy; 2026 Cheatcore. All rights reserved.</p>
+            {/* Resources */}
+            <div>
+              <h4 className="font-heading text-xs uppercase tracking-widest text-white mb-4">Resources</h4>
+              <div className="space-y-2">
+                <Link to="/status" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">Status Page</Link>
+                <Link to="/guides" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">Guides</Link>
+                <Link to="/products" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">All Products</Link>
+                <Link to="/dashboard" className="block text-xs text-gray-500 hover:text-white transition-colors duration-200">Dashboard</Link>
+              </div>
+            </div>
+            {/* Community */}
+            <div>
+              <h4 className="font-heading text-xs uppercase tracking-widest text-white mb-4">Community</h4>
+              <a
+                href="https://discord.gg/cheatcore"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="footer-discord-btn"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#5865F2] text-white font-heading font-bold uppercase tracking-widest text-xs hover:bg-[#4752C4] transition-colors duration-200"
+              >
+                <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor">
+                  <path d="M60.1 4.9A58.5 58.5 0 0045.4.2a.2.2 0 00-.2.1 40.8 40.8 0 00-1.8 3.7 54 54 0 00-16.2 0A37.5 37.5 0 0025.4.3a.2.2 0 00-.2-.1A58.4 58.4 0 0010.5 4.9a.2.2 0 00-.1.1C1.5 18.7-.9 32.2.3 45.5v.1a58.7 58.7 0 0017.6 8.9.2.2 0 00.3-.1 42 42 0 003.6-5.9.2.2 0 00-.1-.3 38.6 38.6 0 01-5.5-2.6.2.2 0 01 0-.4l1.1-.9a.2.2 0 01.2 0 41.8 41.8 0 0035.6 0 .2.2 0 01.2 0l1.1.9a.2.2 0 010 .4c-1.8 1-3.6 1.8-5.5 2.6a.2.2 0 00-.1.3 47.2 47.2 0 003.6 5.9.2.2 0 00.3.1A58.5 58.5 0 0070.3 45.6v-.1c1.4-15-2.3-28-9.8-39.5a.2.2 0 00-.1-.1zM23.7 37.3c-3.4 0-6.3-3.1-6.3-7s2.8-7 6.3-7 6.3 3.2 6.3 7-2.8 7-6.3 7zm23.2 0c-3.4 0-6.2-3.1-6.2-7s2.8-7 6.2-7 6.3 3.2 6.3 7-2.8 7-6.3 7z"/>
+                </svg>
+                Discord
+              </a>
+              <p className="text-[10px] text-gray-700 mt-3">Join for support & updates</p>
+            </div>
+          </div>
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-[10px] text-gray-700 font-mono">&copy; 2026 Cheatcore. All rights reserved.</p>
+            <p className="text-[10px] text-gray-700 font-mono">Use of game modifications is at your own risk.</p>
           </div>
         </div>
       </footer>
