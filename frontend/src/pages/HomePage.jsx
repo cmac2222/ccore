@@ -212,7 +212,7 @@ export default function HomePage() {
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                 >
                   <Link
-                    to={`/products/${p.product_id}`}
+                    to={`/product/${p.product_id}`}
                     className="group block relative overflow-hidden bg-cc-paper border border-white/10 hover:border-cc-blue/50 transition-colors duration-300 p-6"
                   >
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl"
