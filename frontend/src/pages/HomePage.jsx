@@ -46,33 +46,13 @@ export default function HomePage() {
     <div data-testid="home-page" className="min-h-screen bg-cc-bg">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background layers */}
-        <div className="absolute inset-0 grid-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cc-bg/50 to-cc-bg" />
-
-        {/* Hero image with ken burns */}
-        <div className="absolute inset-0 overflow-hidden">
-          {HERO_IMAGES.map((img, i) => (
-            <div
-              key={i}
-              className="absolute inset-0 transition-opacity duration-1000"
-              style={{
-                opacity: i === heroIndex ? 0.15 : 0,
-                backgroundImage: `url(${img})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                animation: i === heroIndex ? 'kenburns 10s ease-in-out infinite alternate' : 'none',
-              }}
-            />
-          ))}
+        {/* Fluid dark background */}
+        <div className="absolute inset-0 bg-cc-bg">
+          <div className="absolute inset-0 grid-overlay" />
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cc-blue/[0.03] rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cc-green/[0.02] rounded-full blur-[120px]" />
         </div>
-
-        <style>{`
-          @keyframes kenburns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-          }
-        `}</style>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-cc-bg" />
 
         <div className="relative max-w-7xl mx-auto px-6 md:px-12 pt-32 pb-24 w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
