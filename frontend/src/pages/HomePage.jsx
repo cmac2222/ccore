@@ -152,17 +152,18 @@ export default function HomePage() {
                       }}
                     >
                       <img
-                        src={img}
-                        alt=""
+                        src={img.src}
+                        alt={img.label}
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-cc-bg/80 to-transparent" />
                       {offset === 0 && (
                         <div className="absolute bottom-0 left-0 right-0 p-6">
-                          <div className="flex items-center gap-2 mb-2">
+                          <div className="flex items-center gap-2 mb-1">
                             <div className="w-2 h-2 rounded-full bg-cc-green status-undetected" />
-                            <span className="font-mono text-[10px] uppercase tracking-widest text-cc-green">Live</span>
+                            <span className="font-mono text-[10px] uppercase tracking-widest text-cc-green">Undetected</span>
                           </div>
+                          <p className="font-heading text-sm font-bold text-white">{img.label}</p>
                         </div>
                       )}
                     </motion.div>
