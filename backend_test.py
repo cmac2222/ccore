@@ -94,7 +94,11 @@ class CheatcoreAPITester:
 
         # Test product status endpoint
         success, resp, data = self.make_request("GET", "/product-status")
-        self.log_test("GET /api/product-status", success, data.get('error', ''))
+        if success:
+            status_count = len(data) if isinstance(data, list) else 0
+            self.log_test(f"GET /api/product-status ({status_count} statuses)", success)
+        else:
+            self.log_test("GET /api/product-status", success, data.get('error', 'Failed') if isinstance(data, dict) else str(data))
 
         # Test reviews endpoint
         success, resp, data = self.make_request("GET", "/reviews")
