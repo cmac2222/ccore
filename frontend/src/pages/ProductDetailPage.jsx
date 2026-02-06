@@ -65,18 +65,19 @@ export default function ProductDetailPage() {
   const statusCfg = STATUS_CONFIG[product.status] || STATUS_CONFIG.undetected;
   const selectedDuration = DURATIONS.find(d => d.key === duration);
   const displayPrice = (product.price * selectedDuration.multiplier).toFixed(2);
+  const gameSlug = product.game.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div data-testid="product-detail-page" className="min-h-screen bg-cc-bg pt-28 pb-24">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Back button */}
-        <button
-          data-testid="back-to-products"
-          onClick={() => navigate('/products')}
-          className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors duration-200 mb-8 font-mono text-xs uppercase tracking-widest"
+        <Link
+          to={`/products/${gameSlug}`}
+          data-testid="back-to-game"
+          className="inline-flex items-center gap-2 text-gray-500 hover:text-white transition-colors duration-200 mb-8 font-mono text-xs uppercase tracking-widest"
         >
-          <ArrowLeft size={16} /> Back to Products
-        </button>
+          <ArrowLeft size={16} /> Back to {product.game}
+        </Link>
 
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Main content */}
