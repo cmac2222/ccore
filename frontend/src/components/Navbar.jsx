@@ -61,60 +61,15 @@ export default function Navbar() {
                 </div>
               </Link>
 
-              {/* Products Mega Menu */}
-              <div ref={productsRef} className="relative">
-                <button
-                  data-testid="nav-products-trigger"
-                  onClick={() => setShowProducts(!showProducts)}
-                  className="font-heading text-sm uppercase tracking-widest text-gray-400 hover:text-cc-blue transition-colors duration-200 flex items-center gap-1"
-                >
-                  Products
-                  <ChevronDown size={14} className={`transition-transform duration-200 ${showProducts ? 'rotate-180' : ''}`} />
-                </button>
-
-                <AnimatePresence>
-                  {showProducts && (
-                    <motion.div
-                      data-testid="products-mega-menu"
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-4 glass p-6 min-w-[500px] grid grid-cols-2 gap-6"
-                    >
-                      {games.map(game => (
-                        <div key={game.name}>
-                          <h4 className="font-heading text-xs uppercase tracking-widest text-cc-blue mb-3">{game.name}</h4>
-                          <div className="space-y-2">
-                            {game.products.map(p => (
-                              <Link
-                                key={p.product_id}
-                                to={`/products/${p.product_id}`}
-                                data-testid={`mega-menu-${p.product_id}`}
-                                className="flex items-center justify-between py-1.5 px-2 rounded hover:bg-white/5 transition-colors duration-200 group"
-                                onClick={() => setShowProducts(false)}
-                              >
-                                <span className="text-sm text-gray-300 group-hover:text-white transition-colors duration-200">{p.name}</span>
-                                <span className="font-mono text-xs text-cc-green">${p.price}</span>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                      <div className="col-span-2 border-t border-white/10 pt-4 mt-2">
-                        <Link
-                          to="/products"
-                          data-testid="mega-menu-view-all"
-                          className="text-sm text-cc-blue hover:text-white transition-colors duration-200 font-heading uppercase tracking-widest"
-                          onClick={() => setShowProducts(false)}
-                        >
-                          View All Products →
-                        </Link>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              {/* Products - Direct Link */}
+              <Link
+                to="/products"
+                data-testid="nav-products"
+                className="font-heading text-sm uppercase tracking-widest text-gray-400 hover:text-cc-blue transition-colors duration-200 flex items-center gap-2"
+              >
+                <Package size={16} />
+                Products
+              </Link>
             </nav>
 
             {/* Center Brand */}
