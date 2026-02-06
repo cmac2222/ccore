@@ -106,15 +106,18 @@ class CheatcoreAPITester:
             reviews_count = len(data) if isinstance(data, list) else 0
             self.log_test(f"GET /api/reviews ({reviews_count} reviews)", success)
         else:
-            self.log_test("GET /api/reviews", success, data.get('error', ''))
+            self.log_test("GET /api/reviews", success, data.get('error', 'Failed') if isinstance(data, dict) else str(data))
 
         # Test stats endpoint
         success, resp, data = self.make_request("GET", "/stats")
-        self.log_test("GET /api/stats", success, data.get('error', ''))
+        if success:
+            self.log_test("GET /api/stats", success, f"Stats: {data}")
+        else:
+            self.log_test("GET /api/stats", success, data.get('error', 'Failed') if isinstance(data, dict) else str(data))
 
         # Test individual product
         success, resp, data = self.make_request("GET", "/products/rust-disconnect")
-        self.log_test("GET /api/products/{id} (rust-disconnect)", success, data.get('error', ''))
+        self.log_test("GET /api/products/{id} (rust-disconnect)", success, data.get('error', '') if isinstance(data, dict) else '')
 
     def test_auth_registration(self):
         """Test user registration"""
