@@ -117,6 +117,7 @@ function AppRouter() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:gameSlug" element={<GameProductsPage />} />
         <Route path="/product/:productId" element={<ProductDetailPage />} />
+        <Route path="/guides" element={<GuidesPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/checkout/success" element={<CheckoutSuccess />} />
       </Routes>
