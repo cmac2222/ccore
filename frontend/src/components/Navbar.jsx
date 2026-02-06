@@ -23,19 +23,13 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    axios.get(`${API}/games`).then(r => setGames(r.data)).catch(() => {});
-  }, []);
-
-  useEffect(() => {
     setMobileOpen(false);
-    setShowProducts(false);
     setShowAccount(false);
   }, [location]);
 
   useEffect(() => {
     const handleClick = (e) => {
       if (accountRef.current && !accountRef.current.contains(e.target)) setShowAccount(false);
-      if (productsRef.current && !productsRef.current.contains(e.target)) setShowProducts(false);
     };
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
