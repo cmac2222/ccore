@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, User, LogOut, LayoutDashboard, Key, ShieldCheck, Menu, X, Package } from 'lucide-react';
+import { ChevronDown, User, LogOut, LayoutDashboard, Key, ShieldCheck, Menu, X, Package, BookOpen } from 'lucide-react';
 import { useAuth } from '../App';
 import AuthModal from './AuthModal';
 
